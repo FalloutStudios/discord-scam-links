@@ -94,7 +94,7 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
      * Add static domain
      * @param domains Domains to add
      */
-    public addDomain(...domains: RestOrArray<string>): this {
+    public addDomains(...domains: RestOrArray<string>): this {
         this.addedDomains.push(...normalizeArray(domains));
         return this;
     }

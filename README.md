@@ -41,10 +41,10 @@ const { DiscordScamLinks } = require('@falloutstudios/djs-scam-links');
 const scamLinks = new DiscordScamLinks();
 
 // Add string domain
-scamLinks.addDomain('suspicious.com');
+scamLinks.addDomains('suspicious.com');
 
 // Add multiple domains
-scamLinks.addDomain('anothersuspicious.com', 'moresuspicious.com');
+scamLinks.addDomains('anothersuspicious.com', 'moresuspicious.com');
 
 // Add from url
 scamLinks.fetchDomainsFromUrl('https://yourdomain.com/domains.json'); // Example content ["anothersuspicious.com", "moresuspicious.com"]
