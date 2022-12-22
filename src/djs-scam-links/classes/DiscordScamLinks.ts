@@ -58,7 +58,7 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
      * Refresh cached domains
      * @param checkCacheAge Only refresh cached domains older than max cache age
      */
-    public async refreshCache(checkCacheAge: boolean = true): Promise<void> {
+    public async refreshDomains(checkCacheAge: boolean = true): Promise<void> {
         if (!this._ready) this._ready = true;
 
         await Promise.all(this.cache.map(async cached => {
@@ -70,7 +70,7 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
         }));
 
         if (!this._refreshCacheInterval) {
-            this._refreshCacheInterval = setInterval(async () => this.refreshCache(true), this._options?.refreshCacheEveryMs ?? 60000 * 5);
+            this._refreshCacheInterval = setInterval(async () => this.refreshDomains(true), this._options?.refreshCacheEveryMs ?? 60000 * 5);
         }
 
         this.emit('cacheRefresh');
@@ -124,7 +124,7 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
 
         if (refreshCache) {
             return (async () => {
-                await this.refreshCache();
+                await this.refreshDomains();
                 return this.allDomains.some(domain => data.includes(domain.toLowerCase()));
             })();
         }
