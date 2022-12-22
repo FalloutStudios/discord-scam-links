@@ -49,8 +49,8 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
         this._options = options;
 
         (typeof options?.fetchJsonFromUrl === 'string' ? [options.fetchJsonFromUrl] : options?.fetchJsonFromUrl)?.forEach(url => typeof url === 'string'
-            ? this.fetchJsonFromUrl(url)
-            : this.fetchJsonFromUrl(url.url, { dataParser: url.dataParser })
+            ? this.fetchDomainsFromUrl(url)
+            : this.fetchDomainsFromUrl(url.url, { dataParser: url.dataParser })
         ); 
     }
 
@@ -81,7 +81,7 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
      * @param url Domains json url
      * @param options Fetch options
      */
-    public async fetchJsonFromUrl<ResponseData = string[]>(url: string, options?: UrlJsonContentOptions<ResponseData> & { dontCache?: boolean; }): Promise<UrlJsonContent<ResponseData, true>> {
+    public async fetchDomainsFromUrl<ResponseData = string[]>(url: string, options?: UrlJsonContentOptions<ResponseData> & { dontCache?: boolean; }): Promise<UrlJsonContent<ResponseData, true>> {
         const data = new UrlJsonContent(url, options);
 
         await data.fetch();
