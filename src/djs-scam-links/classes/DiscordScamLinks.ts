@@ -117,19 +117,27 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
      * @param data String data to check
      * @param refreshCache Refresh cache before checking
      */
-    public isMatch(data: string, refreshCache: false): boolean;
-    public isMatch(data: string, refreshCache: true): Promise<boolean>;
-    public isMatch(data: string, refreshCache: boolean = false): Promise<boolean>|boolean {
+    public isMatch(data: string, refreshCache?: false): boolean;
+    public isMatch(data: string, refreshCache?: true): Promise<boolean>;
+    public isMatch(data: string, refreshCache: boolean = false): Awaitable<boolean> {
         data = data.toLowerCase();
 
         if (refreshCache) {
             return (async () => {
                 await this.refreshDomains();
-                return this.allDomains.some(domain => data.includes(domain.toLowerCase()));
+                return !!this.getMatch(data);;
             })();
         }
 
-        return this.allDomains.some(domain => data.includes(domain.toLowerCase()));
+        return !!this.getMatch(data);
+    }
+
+    /**
+     * Get the matched domain if anything matches from a string
+     * @param data String data
+     */
+    public getMatch(data: string): string|null {
+        return this.allDomains.find(domain => data.includes(domain.toLowerCase())) ?? null;
     }
 
     /**
