@@ -37,7 +37,14 @@ export class DiscordScamLinks<Ready extends boolean = boolean> extends TypedEmit
     get maxCacheAge() { return this._options?.maxCacheAgeMs ?? this._maxCacheAge; }
     get allDomains() { return [...this.addedDomains, ...this.cache.filter(cached => cached.isFetched()).map(cached => cached.content!).reduce((prev, current) => [...prev, ...current])] }
 
-    constructor(options?: Partial<DiscordScamLinksOptions>) {
+    constructor(options: Partial<DiscordScamLinksOptions> = {
+        fetchJsonFromUrl: [
+            {
+                url: 'https://raw.githubusercontent.com/nikolaischunk/discord-phishing-links/main/domain-list.json',
+                dataParser: data => data.domains
+            }
+        ],
+    }) {
         super();
         this._options = options;
 
