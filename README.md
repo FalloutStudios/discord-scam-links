@@ -1,3 +1,4 @@
+# Moved to [New Repository](https://github.com/FalloutStudios/djs/tree/main/packages/scam-links)
 # @falloutstudios/djs-scam-links
 
 Check if string for contains scam domains.
